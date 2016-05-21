@@ -25,7 +25,7 @@ void UART1_Init(unsigned int Baudrate)
     RCAP4 = Baudrate;
 //    RCAP4H = 0xFF;
 //    RCAP4L = 0xB8;    
-    P25 = 0;        
+    P25 = 1;        
 }
 #endif
 

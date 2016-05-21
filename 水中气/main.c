@@ -1,4 +1,3 @@
-
 #include "global.h"
 
 
@@ -10,7 +9,7 @@ void main(void){
     SYSTEM_Init();
     Port_Init();   
     maintmp[0] = FlashReadByte(0x6A06,SELECT_64K);
-    if(maintmp[0] == 0x00)//不需要大范围调试，读出频率
+    if(maintmp[0] == 0x00)                                                  //不需要大范围调试，读出频率
     {        
         bTSKG  = ON;
         FreqLargeRangeSearchONOFF = OFF;
@@ -44,7 +43,7 @@ void main(void){
         TL0 = (unsigned char)(F_OUT&0xFF);
     }
     else
-    {
+    {                                                                       //需要大范围调试
         uiHostUpValue = 2000;
         uiHostDownValue = 500;
         uiSignalZeroPosition = 0;
@@ -64,8 +63,8 @@ void main(void){
     }
     bChangeTime = 0;
     bChange = 0; 
-    UART0_Init(BaudRate_9600);
-    UART1_Init(BaudRate_9600);
+    UART0_Init(BaudRate_9600);              //方式1
+    UART1_Init(BaudRate_9600);              //方式3
     ADDA_Init();
     Timer3_Init();
     INT_Init();

@@ -14,6 +14,7 @@ bit PassWordHHChangeFlag = 0;      //4位密码修改标志
 bit PassWordHLChangeFlag = 0;
 bit PassWordLHChangeFlag = 0;
 bit PassWordLLChangeFlag = 0;
+bit DebugStateChangeFlag = 0;            //是否修改了调试状态
  
 
 unsigned char IRTimer = 0;       //记录IR脉冲宽度
@@ -239,7 +240,7 @@ void KeyService(void)
                     KeyParameterTable[12] = (unsigned char)(uiSignalZeroPosition&0xFF);
                     KeyParameterTable[13] = (unsigned char)(uiSignalRange>>8);
                     KeyParameterTable[14] = (unsigned char)(uiSignalRange&0xFF);  
-                    if(FreqLargeRangeSearchONOFF == ON)
+                    if((DebugStateChangeFlag == 1)&&(FreqLargeRangeSearchONOFF == ON))
                     {
                         bTSKG = ON;
                         bValveState = OFF;
@@ -623,12 +624,7 @@ void KeyService(void)
                             break;
                         case 4:                                   //大范围调试开关
                             FreqLargeRangeSearchONOFF = ~FreqLargeRangeSearchONOFF;
-                            if(FreqLargeRangeSearchONOFF == ON) 
-                            {
-                                //bSzbd = OFF;
-                                //FreqSmallRangeSearchONOFF = OFF;
-                                
-                            }
+                            DebugStateChangeFlag = ~DebugStateChangeFlag;                            
                             break;
                         case 7:                           //量程
                             if(RangeHunderdChangeFlag ==0)

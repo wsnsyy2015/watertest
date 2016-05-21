@@ -168,7 +168,7 @@ void LCDDisplaySignalValue(void)
 	temp[4] = 0x00;			//Y坐标
 	temp[5] = 0xFE;
 	Uart1_Send_String(temp);
-	temp[0] = 0x80;
+	temp[0] = 0x86;
 	temp[1] = 0x23;			//32点阵
 	temp[2] = 0xC1;			//前景色背景色都显示 文本横向显示
 	temp[3] = 0x03;			// 32*32	
@@ -260,7 +260,7 @@ void LCDDisplayState(void)
 	temp[4] = 0x00;			//Y坐标
 	temp[5] = 0xFE; 
 	Uart1_Send_String(temp);
-	temp[0] = 0x9F;
+	temp[0] = 0xAD;
 	temp[1] = 0x23;			//32点阵
 	temp[2] = 0xC1;			//前景色背景色都显示 文本横向显示
 	temp[3] = 0x03;			// 32*32	

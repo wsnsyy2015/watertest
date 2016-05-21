@@ -44,6 +44,42 @@ void SYSTEM_Init(void){
      Variate_Init();         
 }
 /*****************IO口配置**********************/
+// P0.0  -  TX0 (UART0), Open-Drain, Digital
+    // P0.1  -  RX0 (UART0), Open-Drain, Digital
+    // P0.2  -  SCK  (SPI0), Open-Drain, Digital
+    // P0.3  -  MISO (SPI0), Open-Drain, Digital
+    // P0.4  -  MOSI (SPI0), Open-Drain, Digital
+    // P0.5  -  NSS  (SPI0), Open-Drain, Digital
+    // P0.6  -  Skipped,     Open-Drain, Digital
+    // P0.7  -  Skipped,     Open-Drain, Digital
+
+    // P1.0  -  SDA (SMBus), Open-Drain, Digital
+    // P1.1  -  SCL (SMBus), Open-Drain, Digital
+    // P1.2  -  TX1 (UART1), Open-Drain, Digital
+    // P1.3  -  RX1 (UART1), Open-Drain, Digital
+    // P1.4  -  INT0 (Tmr0), Open-Drain, Digital
+    // P1.5  -  INT1 (Tmr1), Open-Drain, Digital
+    // P1.6  -  Unassigned,  Open-Drain, Digital
+    // P1.7  -  Unassigned,  Open-Drain, Digital
+
+    // P2.0  -  Unassigned,  Open-Drain, Digital
+    // P2.1  -  Unassigned,  Open-Drain, Digital
+    // P2.2  -  Unassigned,  Open-Drain, Digital
+    // P2.3  -  Unassigned,  Open-Drain, Digital
+    // P2.4  -  Unassigned,  Open-Drain, Digital
+    // P2.5  -  Unassigned,  Open-Drain, Digital
+    // P2.6  -  Unassigned,  Open-Drain, Digital
+    // P2.7  -  Unassigned,  Open-Drain, Digital
+
+    // P3.0  -  Unassigned,  Open-Drain, Digital
+    // P3.1  -  Unassigned,  Open-Drain, Digital
+    // P3.2  -  Unassigned,  Open-Drain, Digital
+    // P3.3  -  Unassigned,  Open-Drain, Digital
+    // P3.4  -  Unassigned,  Open-Drain, Digital
+    // P3.5  -  Unassigned,  Open-Drain, Digital
+    // P3.6  -  Unassigned,  Open-Drain, Digital
+    // P3.7  -  Unassigned,  Open-Drain, Digital
+//----------------------------------------------------
 
 void Port_Init(void){
     //交叉译码器
@@ -58,7 +94,8 @@ void Port_Init(void){
      P2MDOUT=0xB7;
      P3MDOUT=0xBF;
      P3 |=0x40;   //P3.7 = 1
-     P74OUT=0x00;            
+     //未使用引脚修改推挽方式
+     P74OUT=0xFF;            
 }
 
 void ADDA_Init(void){
@@ -83,7 +120,7 @@ void INT_Init(void)
     IT1 = 1;   //下降沿
     PX1 = LOW;   //优先级低
     EX1 = ENABLE;   //允许
-    P3IF &= 0xFB;        //int6为下降沿
+    //P3IF &= 0xFB;        //int6为下降沿
 }
 
 void Timer0_Init(unsigned int F_Set){

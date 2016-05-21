@@ -10,7 +10,7 @@
 #include "key.h"
 #include "smbus.h"
 #include "pcf8563.h"
-#include <intrins.h>
+//#include <intrins.h>
 
 #define	SYSCLK	                            22.118400   //22.1148MHZ
 #define PWM_Frequency_LargeRange_Start           1500        //1500HZ ´ó·¶Î§ËÑË÷
