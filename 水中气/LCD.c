@@ -1088,7 +1088,7 @@ void FillRect(unsigned int * pRectPlace)
 //--------------------------------------------
 //œ‘ æDAC
 //--------------------------------------------
-#if 0
+#if 1
 void LCDDisplayDAC(void)
 {
     temp[0] = 0xAA;
@@ -1150,7 +1150,7 @@ void LCDRefresh(void)
                 break;
             case TempratureTransform:
                 TransformTemprature(); 
-                //LCDDisplayDAC();               
+                LCDDisplayDAC();               
                 DisplayIndex = 0;
                 break;    
             case DisplayTemperatureValue:            

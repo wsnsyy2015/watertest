@@ -516,8 +516,8 @@ void ControlValve(void)
                     {
                         bValveState = ON;      //±¨¾¯ÐÅºÅ
                         bBeng = ON;   
-                        DAC0L = 0xD0;
-                        DAC0H = 0x00;   
+                        DAC0L = 0x00;
+                        DAC0H = 0x0D;   
                         return;    
                     }  
                     else
