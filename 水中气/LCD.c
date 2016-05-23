@@ -1088,6 +1088,7 @@ void FillRect(unsigned int * pRectPlace)
 //--------------------------------------------
 //œ‘ æDAC
 //--------------------------------------------
+#if 0
 void LCDDisplayDAC(void)
 {
     temp[0] = 0xAA;
@@ -1100,7 +1101,7 @@ void LCDDisplayDAC(void)
     temp[0] = 0x10;
     temp[1] = 0xFE;
     Uart1_Send_String(temp);
-    temp[0] = 0x44;    //√‹
+    temp[0] = 0x44;    //
     temp[1] = 0x41;
     temp[2] = 0x43;
     temp[3] = 0x3A;
@@ -1119,6 +1120,7 @@ void LCDDisplayDAC(void)
     Uart1_Send_String(temp);
     Uart1_Send_String(END_CMD);                 
 }
+#endif
 //-----------------------------------------------------------
 //Œ¬∂»= V*80  º¥(2.5/4096)*code*80=code*100/2048
 //  80 = 200/2.5
@@ -1148,7 +1150,7 @@ void LCDRefresh(void)
                 break;
             case TempratureTransform:
                 TransformTemprature(); 
-                LCDDisplayDAC();               
+                //LCDDisplayDAC();               
                 DisplayIndex = 0;
                 break;    
             case DisplayTemperatureValue:            
