@@ -13,10 +13,10 @@
 //#include <intrins.h>
 
 #define	SYSCLK	                            22.118400   //22.1148MHZ
-#define PWM_Frequency_LargeRange_Start           1500        //1500HZ ´ó·¶Î§ËÑË÷
-#define PWM_Frequency_LargeRange_End             1900
-#define T0_Set_LargeRange_Start                  (unsigned int)(65536-500000*SYSCLK/PWM_Frequency_LargeRange_Start)
-#define T0_Set_LargeRange_End                    (unsigned int)(65536-500000*SYSCLK/PWM_Frequency_LargeRange_End)
+#define PWM_Frequency_LargeRange_Start           1500L        //1500HZ ´ó·¶Î§ËÑË÷
+#define PWM_Frequency_LargeRange_End             1900L
+#define T0_Set_LargeRange_Start                  (unsigned int)(65536L-500000L*SYSCLK/PWM_Frequency_LargeRange_Start)
+#define T0_Set_LargeRange_End                    (unsigned int)(65536L-500000L*SYSCLK/PWM_Frequency_LargeRange_End)
 
 #define DISABLE               0
 #define ENABLE                1

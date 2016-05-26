@@ -37,10 +37,10 @@ void PCF865Read(void)
     unsigned char TimeBuf[3];
     TimeBuf[0] = (0x7F&SM_Receive(CHIP_PCF8563,REG_MIN));
     TimeBuf[1] = (0x3F&SM_Receive(CHIP_PCF8563,REG_HOUR)); 
-    TimeBuf[3] = (0x7F&SM_Receive(CHIP_PCF8563,REG_SEC));
+    //TimeBuf[3] = (0x7F&SM_Receive(CHIP_PCF8563,REG_SEC));
     Minute = TimeBuf[0];               //RTC_Bcd2ToBin(TimeBuf[0]);
     Hour = TimeBuf[1];                    //RTC_Bcd2ToBin(TimeBuf[1]); 
-    Second = TimeBuf[2];                //RTC_Bcd2ToBin(TimeBuf[2]);
+    //Second = TimeBuf[2];                //RTC_Bcd2ToBin(TimeBuf[2]);
 }
 
 

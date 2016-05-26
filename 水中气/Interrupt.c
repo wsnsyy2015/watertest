@@ -42,6 +42,8 @@ bit bCloseValveTempFall = OFF;//温度下降导致关阀
 bit FreqLargeRangeSearchONOFF = ON;//大范围搜索
 bit FreqSmallRangeSearchONOFF = OFF;//小范围搜索
 
+//bit SignalChangeFlag = 0;
+
 #if 1
 
 void MarkArray(void);
@@ -63,8 +65,9 @@ void ADC0_ISR (void) interrupt 15
         {
             if(ADC0>F_ADC)
             {
-                F_ADC = ADC0;
+                F_ADC = ADC0;         //找最大值
                 F_FIND = F_OUT;
+                //SignalChangeFlag = 1;
                 //Signal = ADC0;   //显示最大值
             }
             Signal = ADC0;   //实时值
@@ -83,6 +86,7 @@ void ADC0_ISR (void) interrupt 15
                 ucSignalCount = 0;
                 Signal = (F_ADC>>7);
                 F_ADC = 0;
+                //SignalChangeFlag = 1;
                 return;       
             }
             F_ADC += ADC0;
@@ -314,7 +318,7 @@ void Timer1_ISR(void) interrupt 3
 //    static unsigned char T1_Count2 = 0;
 //    EX1 = DISABLE;          //外部中断
     TH1 = 0x0A;
-    TL1 = 0x01;
+    TL1 = 0x00;
 //    WDog_Feed();
     T1_Count1++;
     if((BackLightFlag == 0) && (T1_Count1 == 8)||(BackLightFlag == 0) && (T1_Count1 == 20))
@@ -361,13 +365,28 @@ void Timer1_ISR(void) interrupt 3
             if((bSzbd == OFF)&&(bTSKG == OFF))              //大范围调试后bSzbd=ON,需要重启后才为OFF
             {
                 ucControlValveTime++;
-                if((ControlValveFlag == 0) && (ucControlValveTime == 5))
+                if(bValveState == OFF)
                 {
-                    ucControlValveTime = 0;  
-                    WDog_Feed();
-                    ControlValveFlag = 1;
-                    ControlValve();//控制阀
+                    //-----------------2016-5-24修改------------------------
+                    if((ControlValveFlag == 0) && (ucControlValveTime == 9))
+                    {
+                        ucControlValveTime = 0;  
+                        WDog_Feed();
+                        ControlValveFlag = 1;
+                        ControlValve();//控制阀
+                    }
                 }
+                else 
+                {
+                    if((ControlValveFlag == 0) && (ucControlValveTime == 200))
+                    {
+                        ucControlValveTime = 0;  
+                        WDog_Feed();
+                        ControlValveFlag = 1;
+                        ControlValve();//控制阀   
+                    }   
+                }
+                //-----------------------end---------------------------------
              }
 		    break;
 		case 220:
@@ -380,7 +399,7 @@ void Timer1_ISR(void) interrupt 3
 		    else
 		    {
 		        ucNoDebugTime++;
-		        if(((bSzbd == ON)&&(ucNoDebugTime > 2)) || ((bSzbd == OFF) && (ucNoDebugTime > 15))) 
+		        if(((bSzbd == ON)&&(ucNoDebugTime >= 2)) || ((bSzbd == OFF) && (ucNoDebugTime >= 15))) 
 		        {
 		            ucControlValveTime = 0;         
 		            ControlValveFlag = 0;     //2016-5-20添加		            
@@ -541,15 +560,10 @@ void ControlValve(void)
                         //2016-5-20添加
                         else if(Signal < uiHostDownValue)
                         {
-                             
-                            ucControlValveTime = 0;         
-		                    ControlValveFlag = 0;    		            
-		                    ucNoDebugTime = 0;
-		                    bTSKG = ON;
-		                    F_ADC = 0; 
-		                    F_OUT = F_START;
-		                    uiPWMCount = 0;
-		                    bValveState = OFF;        
+                                                         
+		                    bValveState = OFF; 
+		                    bBeng = OFF;
+		                    return;       
                         }
                         //------end-------------
                         else

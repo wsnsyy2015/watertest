@@ -5,8 +5,8 @@
 
 #define FreqStep                                 0x01        //小范围&精确调试步进
 #define PreciseFreqRange                         0x0020     //精确搜频范围
-#define WashFreqRange                            0x0200 
-#define SmallFreqRange                           0x0080      //main中小范围搜频范围  
+#define WashFreqRange                            0x0020 
+#define SmallFreqRange                           0x0080      //main中小范围搜频范围，若设置太大会导致调试时间过长 
 #define FXCS                                     10//调试次数 分析次数
 
 #define DisplayTitle                        1

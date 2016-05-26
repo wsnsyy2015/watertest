@@ -19,8 +19,8 @@ void Variate_Init()
     bBeng = OFF;
     bSzbd = OFF;
     DisplayIndex = 0;
-    PassWordH = 0x00;         //BCD
-    PassWordL = 0x00;
+    //PassWordH = 0x00;         //BCD
+    //PassWordL = 0x00;
     InputPassWord1 = 0;
     InputPassWord2 = 0;
     InputPassWord3 = 0;
@@ -138,7 +138,7 @@ void Timer0_Init(unsigned int F_Set){
 void Timer1_Init(void){
     
     TH1 = 0x0A;
-    TL1 = 0x01;
+    TL1 = 0x00;
     CKCON |= (0x01<<4);
     TMOD |= (0x01<<4);
     PT1 = HIGH;

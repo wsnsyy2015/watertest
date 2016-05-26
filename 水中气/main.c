@@ -14,26 +14,32 @@ void main(void){
         bTSKG  = ON;
         FreqLargeRangeSearchONOFF = OFF;
         bValveState = OFF;
+        
         maintmp[0] = FlashReadByte(0x6A00,SELECT_64K);
         maintmp[1] = FlashReadByte(0x6A01,SELECT_64K);
         uiHostUpValue = maintmp[1];
         uiHostUpValue += (maintmp[0]<<8);
+        //读取上限
         maintmp[0] = FlashReadByte(0x6A02,SELECT_64K);
         maintmp[1] = FlashReadByte(0x6A03,SELECT_64K);
         uiHostDownValue = maintmp[1];
         uiHostDownValue += (maintmp[0]<<8);
+        //读取下限
         maintmp[0] = FlashReadByte(0x6A07,SELECT_64K);
         maintmp[1] = FlashReadByte(0x6A08,SELECT_64K);
         F_FIND = maintmp[1];
         F_FIND += (maintmp[0]<<8);
+        //读取频率
         maintmp[0] = FlashReadByte(0x6A0B,SELECT_64K);
         maintmp[1] = FlashReadByte(0x6A0C,SELECT_64K);
         uiSignalZeroPosition = maintmp[1];
         uiSignalZeroPosition += (maintmp[0]<<8);
+        //读取零位
         maintmp[0] = FlashReadByte(0x6A0D,SELECT_64K);
         maintmp[1] = FlashReadByte(0x6A0E,SELECT_64K);
         uiSignalRange = maintmp[1];
         uiSignalRange += (maintmp[0]<<8);
+        //读取量程
         F_START = F_FIND - SmallFreqRange;
         F_END = F_FIND + SmallFreqRange;
         F_OUT = F_START;
@@ -61,6 +67,8 @@ void main(void){
         
 //2016-04-01_updata           
     }
+    PassWordH = FlashReadByte(0x6A09,SELECT_64K);
+    PassWordL = FlashReadByte(0x6A0A,SELECT_64K);
     bChangeTime = 0;
     bChange = 0; 
     UART0_Init(BaudRate_9600);              //方式1

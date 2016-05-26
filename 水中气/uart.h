@@ -14,7 +14,7 @@ extern void Uart1_Send_Byte(unsigned char ch);
 extern void Uart1_Send_String(unsigned char *ch);
 extern void UART0_Init(unsigned int Baudrate);
 extern void UART1_Init(unsigned int Baudrate);
-//extern void UART1_Init(void);
+
 
 
 
