@@ -16,6 +16,7 @@ extern void Timer0_Init(unsigned int F_Set);
 extern void Timer1_Init(void);
 extern void Timer3_Init(void);
 extern void ADDA_Init(void);
+//extern void Variate_Init();
 //extern void UART0_Init(unsigned int Baudrate);
 //extern void UART1_Init(unsigned int Baudrate);
 

@@ -325,7 +325,8 @@ void Timer1_ISR(void) interrupt 3
     {
         if(T1_Count1 == 20)
         {
-            BackLightFlag = 1;    
+            BackLightFlag = 1; 
+            //SetMixColor(0x4000,0x8418);   
         }
         T1LCDBackLight(0x3F);                  
     }
@@ -378,7 +379,7 @@ void Timer1_ISR(void) interrupt 3
                 }
                 else 
                 {
-                    if((ControlValveFlag == 0) && (ucControlValveTime == 200))
+                    if((ControlValveFlag == 0) && (ucControlValveTime == 100))
                     {
                         ucControlValveTime = 0;  
                         WDog_Feed();
@@ -543,14 +544,8 @@ void ControlValve(void)
                     {
                         MarkTime = 0;              //避免刚关阀就清洗
                         bValveState = ON;
-                        bDewaterFlag = ON;
-                        DifferValue = Signal - uiSignalZeroPosition;
-                        RangeValue = uiSignalRange - uiSignalZeroPosition; 
-                        temp = (float)DifferValue/RangeValue;
-                        DACValue = 0x0D00*temp;
-                                                            //除法运算，需要优化
-                        DAC0L = (DACValue&0xFF);
-                        DAC0H = ((DACValue>>8)&0x0F); 
+                        bDewaterFlag = ON;                        
+                                                                                    
                         if(Signal > uiHostUpValue)
                         {
                             bValveState = ON;
@@ -563,11 +558,26 @@ void ControlValve(void)
                                                          
 		                    bValveState = OFF; 
 		                    bBeng = OFF;
+		                    ucControlValveTime = 0;         
+    		                ControlValveFlag = 0;     //2016-5-20添加		            
+    		                ucNoDebugTime = 0;
+    		                bTSKG = ON;
+    		                F_ADC = 0; 
+    		                F_OUT = F_START;
+    		                uiPWMCount = 0;
+    		                //DAC0L = 0;
+    		                //DAC0H = 0;
 		                    return;       
                         }
                         //------end-------------
                         else
-                        {
+                        {                                                      //信号值在下限与上限之间时，按比例输出模拟量
+                            DifferValue = Signal - uiSignalZeroPosition;
+                            RangeValue = uiSignalRange - uiSignalZeroPosition;  
+                            temp = (float)DifferValue/RangeValue;                  //除法运算，需要优化
+                            DACValue = 0x0D00*temp;
+                            DAC0L = (DACValue&0xFF);
+                            DAC0H = ((DACValue>>8)&0x0F);
                             bValveState = OFF;
                             bBeng = OFF;
                             return;                       

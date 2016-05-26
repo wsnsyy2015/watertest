@@ -29,6 +29,9 @@ void main(void){
         maintmp[1] = FlashReadByte(0x6A08,SELECT_64K);
         F_FIND = maintmp[1];
         F_FIND += (maintmp[0]<<8);
+		//读取密码
+		PassWordH = FlashReadByte(0x6A09,SELECT_64K);
+		PassWordL = FlashReadByte(0x6A0A,SELECT_64K);
         //读取频率
         maintmp[0] = FlashReadByte(0x6A0B,SELECT_64K);
         maintmp[1] = FlashReadByte(0x6A0C,SELECT_64K);
@@ -67,8 +70,6 @@ void main(void){
         
 //2016-04-01_updata           
     }
-    PassWordH = FlashReadByte(0x6A09,SELECT_64K);
-    PassWordL = FlashReadByte(0x6A0A,SELECT_64K);
     bChangeTime = 0;
     bChange = 0; 
     UART0_Init(BaudRate_9600);              //方式1
@@ -77,7 +78,7 @@ void main(void){
     Timer3_Init();
     INT_Init();
     Timer0_Init(F_OUT);
-    Timer1_Init();    
+    Timer1_Init();        
     SMBus_Init();    
     EA = ENABLE;
     SM_Send(CHIP_PCF8563,0x00,0x00);

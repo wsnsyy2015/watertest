@@ -19,8 +19,8 @@ void Variate_Init()
     bBeng = OFF;
     bSzbd = OFF;
     DisplayIndex = 0;
-    //PassWordH = 0x00;         //BCD
-    //PassWordL = 0x00;
+    PassWordH = 0x00;         //BCD
+    PassWordL = 0x00;
     InputPassWord1 = 0;
     InputPassWord2 = 0;
     InputPassWord3 = 0;

@@ -1125,10 +1125,11 @@ void LCDDisplayDAC(void)
 //-----------------------------------------------------------
 //温度= V*80  即(2.5/4096)*code*80=code*100/2048
 //  80 = 200/2.5
+//20160526更新，修改浮点数运算的错误 100→100.0
 //----------------------------------------------------------
 void TransformTemprature(void)
 {
-    Temperature = ((float)(TemperatureCode*100))/2048;       
+    Temperature = (TemperatureCode*100.0)/2048.0;       
 }
 
 
@@ -1149,7 +1150,7 @@ void LCDRefresh(void)
                 LCDDisplayStringTitle();               
                 DisplayIndex = 0;
                 break;
-            case TempratureTransform:
+            case TempratureTransform:                
                 TransformTemprature(); 
                 LCDDisplayDAC();               
                 DisplayIndex = 0;
